@@ -1,5 +1,7 @@
 package com.biotech.process;
 
+import com.biotech.process.model.ListeSymptome;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,6 +15,8 @@ public class AnalyticsCounter {
 		// first get input
 		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
 		String line = reader.readLine();
+
+		ListeSymptome listeSymptome = new ListeSymptome();
 
 		int i = 0;	// set i to 0
 		int headCount = 0;	// counts headaches
@@ -30,14 +34,21 @@ public class AnalyticsCounter {
 				pupilCount++;
 			}
 
+			listeSymptome.ajouter(line);
+
 			line = reader.readLine();	// get another symptom
 		}
-		
+
+
+
 		// next generate output
 		FileWriter writer = new FileWriter ("result.out");
 		writer.write("headache: " + headacheCount + "\n");
 		writer.write("rash: " + rashCount + "\n");
 		writer.write("dialated pupils: " + pupilCount + "\n");
 		writer.close();
+
+		System.out.println("**********************************");
+		System.out.println(listeSymptome.toString());
 	}
 }
