@@ -12,21 +12,21 @@ public class AnalyticsCounter {
 	private static int pupilCount = 0;		// initialize to 0
 	
 	public static void main(String args[]) throws Exception {
-		// first get input
-		BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"));
-		String line = reader.readLine();
-
 		ListeSymptome listeSymptome = new ListeSymptome();
 
-		while (line != null) {
-			listeSymptome.ajouter(line);
-			line = reader.readLine();	// get another symptom
+		// first get input
+		try (BufferedReader reader = new BufferedReader (new FileReader("symptoms.txt"))) {
+			String line = reader.readLine();
+			while (line != null) {
+				listeSymptome.ajouter(line);
+				line = reader.readLine();    // get another symptom
+			}
 		}
 
 		// next generate output
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write(listeSymptome.toString());
-		writer.close();
+		try (FileWriter writer = new FileWriter ("result.out")){
+			writer.write(listeSymptome.toString());
+		}
 
 		System.out.println(listeSymptome.toString());
 	}
