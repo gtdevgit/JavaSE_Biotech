@@ -1,22 +1,17 @@
 package com.biotech.process.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ListeSymptome {
-    private Map<String, Integer> map = new HashMap<>();
+    private Map<String, Integer> map = new TreeMap<>();
 
     public void ajouter(String symptome){
-        try {
-            map.put(symptome, map.get(symptome) + 1);
-        } catch (NullPointerException e){
-            map.put(symptome, 1);
-        }
+        int count = map.getOrDefault(symptome, 0);
+        map.put(symptome, ++count);
     }
 
     public String toString(){
+        // sort : List<Character> sortedKeys = chars.keySet().stream().sorted().toList();
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             sb.append(entry.getKey() + " " + entry.getValue() + "\n");
